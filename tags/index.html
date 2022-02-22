@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="zh-CN"><head>meta(charset="utf-8")
+meta(name="X-UA-Compatible", content="IE=edge")
+meta(name="author", content= theme.author)
+title
+    block site_title
+        = config.title
+block description
+    meta(name="description", content= theme.description ? theme.description : 'A Blog Powered By Hexo')
+
+if page.keywords
+    meta(name="keywords", content= page.keywords)
+else
+    meta(name="keywords" content= theme.keywords)
+
+meta(content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",name="viewport")
+meta(content="yes",name="apple-mobile-web-app-capable")
+meta(content="black",name="apple-mobile-web-app-status-bar-style")
+meta(content="telephone=no",name="format-detection")
+
+meta(name="renderer",content="webkit")
+link(rel="shortcut icon" type="image/x-icon" href=theme.favicon)
+link(rel="stylesheet", href= url_for('css/style.css'))
+link(rel="stylesheet", href= url_for('css/blog_basic.css'))
+link(rel="stylesheet", href= url_for('css/font-awesome.min.css'))
+link(rel="stylesheet", href= url_for('css/insight.css'))
+link(rel="stylesheet", href= url_for('css/search.css'))
+link(rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml")
+script(src= url_for('js/jquery.js'))<meta name="generator" content="Hexo 6.0.0"></head><body>.page-top.animated.fadeInDown
+  .nav
+    each cur, lst in theme.menu
+      li 
+        if is_current(cur)
+          a.current(href= cur)= __(lst)
+        else
+          a(href=cur)= __(lst)
+
+
+  .information
+    .nav_right_btn
+      if theme.rightbtn.back
+        li
+          if is_post()
+            a.fa.fa-chevron-left(onclick="window.history.go(-1)") 
+          else
+            a.fa.fa-chevron-left(onclick="window.history.go(-1)" style="display:none;") 
+      if theme.rightbtn.search
+        li
+          a.fa.fa-search(onclick="openWindow();")
+    .avatar
+      if theme.rightbtn.avatar
+        img(src=theme.avatar)
+.sidebar.animated.fadeInDown
+  .sidebar-top
+    .logo-title
+      .title
+        img(src= url_for(theme.logo_dir),style=theme.logo_style, alt="favicon")
+        h3(title="")
+          a(href="/")= config.title
+        if theme.description
+          .description
+            p!= theme.description
+      include social_links
+    
+    include toc
+  
+  include footer
+<div class="main"><div class="archive animated fadeInDown"><div class="autopagerize_page_element"><div class="content"><p></p></div></div></div></div><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script>script
+  != '(function(window){var INSIGHT_CONFIG={TRANSLATION:{POSTS:"' + __("insight.posts")+ '",PAGES:"' + __("insight.pages") + '",CATEGORIES:"' + __("insight.categories") + '",TAGS:"'+__("insight.tags")+'",UNTITLED:"'+__("insight.untitled")+'",},CONTENT_URL:"'+ url_for('/content.json')+'",};window.INSIGHT_CONFIG=INSIGHT_CONFIG})(window);'
+script(src= url_for('js/insight.js') defer)
+.searchbox.ins-search
+  .searchbox-container.ins-search-container
+    .searchbox-input-wrapper
+      input(type="text" , class="searchbox-input ins-search-input", placeholder=__('insight.hint'))
+      span(class="searchbox-close")
+        a.fa.fa-times-circle(onclick="closeWindow();")
+    .searchbox-result-wrapper.ins-section-wrapper
+      .ins-section-container
+        p Seraching...</body></html>
